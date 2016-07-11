@@ -1,0 +1,58 @@
+---
+- name: downloading mysql package
+  become: root
+  get_url: url=http://dev.mysql.com/get/{{ mysql_repo }} dest=/tmp/{{ mysql_repo }}
+  ignore_errors: yes
+
+- name: configuring distro for mysql install
+  become: root
+  shell: mysql-apt-config mysql-apt-config/repo-distro select ubuntu | debconf-set-selections
+  ignore_errors: yes
+
+- name: configuring codename for mysql install
+  become: root
+  shell: mysql-apt-config mysql-apt-config/repo-codename select trusty | debconf-set-selections
+  ignore_errors: yes
+
+- name: configuring selection for mysql install
+  become: root
+  shell: mysql-apt-config mysql-apt-config/select-server select mysql-5.7 | debconf-set-selections
+  ignore_errors: yes
+
+- name: adding mysql package to repo
+  become: root
+  apt: deb=/tmp/{{ mysql_repo }}
+  ignore_errors: yes
+
+- name: removing tmp file
+  become: root
+  file: path=/tmp/{{ mysql_repo }} state=absent
+  ignore_errors: yes
+
+- name: replace default mysql.list
+  become: root
+  template: src=mysql.list.j2
+            dest=/etc/apt/sources.list.d/mysql.list
+            owner=root
+            group=root
+            mode=0644
+            backup=true
+
+- name: install mysql
+  become: root
+  apt: name={{ mysql_package }} update_cache=yes
+  ignore_errors: yes
+
+- name: make sure MYSQL-python is installed
+  become: root
+  pip:
+    name: MySQL-python
+  ignore_errors: yes
+
+- name: set 'root' password
+  mysql_user: name={{ mysql_root_user }} password={{ mysql_root_password }} priv=*.*:ALL state=present
+  ignore_errors: yes
+
+- name: create default database for app
+  mysql_db: name={{ app_db_name }} state=present login_user={{ mysql_root_user }} login_password={{ mysql_root_password }}
+  ignore_errors: yes

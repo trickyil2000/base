@@ -1,0 +1,44 @@
+---
+# Allows for switching between specific feature packaged versions
+nginx_repo: ppa:nginx/stable
+nginx_package: nginx
+
+# Nginx site config
+nginx_site_path: /etc/nginx/sites-enabled
+nginx_site_template: php-site.conf.j2
+nginx_site_remove_default: false
+
+# Configuration settings for the site template
+nginx_site_listen_ip:
+nginx_site_listen_port: 80
+nginx_site_listen_is_default: false
+nginx_site_servernames:
+ - localhost
+nginx_site_docroot: /var/www/
+nginx_denied_files:
+ - \.inc
+ - \.tpl
+ - \.sql
+ - \.db
+ - \.phtml
+ - \.ini
+ - \.htpasswd
+ - \.htaccess
+ - \.conf
+
+# Some defaults from the package nginx.conf
+nginx_user: www-data
+nginx_worker_processes: 4
+nginx_worker_connections: 768
+nginx_multi_accept: "off"
+nginx_sendfile: "off" #should be off, because of NginX behaviour in Vagrant boxes.
+nginx_tcp_nopush: "on"
+nginx_tcp_nodelay: "on"
+nginx_keepalive_timeout: 65
+nginx_types_hash_max_size: 2048
+
+nginx_mime_types_file: /etc/nginx/mime.types
+nginx_default_mime_type: application/octet-stream
+nginx_access_log_file: /var/log/nginx/access.log
+nginx_error_log_file: /var/log/nginx/error.log
+nginx_error_log_level: error

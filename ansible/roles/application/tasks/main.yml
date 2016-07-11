@@ -1,0 +1,25 @@
+---
+- name: creating nginx vhost
+  become: root
+  template:
+    src: available-site.j2
+    dest: /etc/nginx/sites-available/{{ app_domain }}
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
+
+- name: symlinking nginx vhost to enable vhost
+  become: root
+  file:
+    src: /etc/nginx/sites-available/{{ app_domain }}
+    dest: /etc/nginx/sites-enabled/{{ app_domain }}
+    state: link
+  notify: restart nginx
+
+- name: symlinking the vagrant shared folder to the webroot
+  become: root
+  file:
+    src: /vagrant
+    dest: /var/www/{{ app_name }}
+    state: link

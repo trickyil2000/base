@@ -1,0 +1,13 @@
+---
+- name: add php 7.0 repository
+  become: root
+  apt_repository: repo={{ php_repo }}
+
+- name: install php 7.0
+  become: root
+  apt: name={{ php_package }}
+
+- name: additonal php packages
+  become: root
+  apt: name={{ item }}
+  with_items: "{{ php_additional }}"

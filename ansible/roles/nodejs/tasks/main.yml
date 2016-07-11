@@ -1,0 +1,15 @@
+---
+- name: add repository key for NodeJS
+  become: root
+  apt_key: keyserver=keyserver.ubuntu.com id=68576280 state=present
+  ignore_errors: yes
+
+- name: add repository for NodeJS
+  become: root
+  apt_repository: repo='{{ nodejs_repo }}' state=present
+#  ignore_errors: yes
+
+- name: update cache and intall NodeJS
+  become: root
+  apt: name=nodejs update_cache=yes
+  ignore_errors: yes

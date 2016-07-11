@@ -1,0 +1,5 @@
+---
+app_name: base
+app_domain: base.dev
+app_domain_alias: www.base.dev
+app_php_version: php/php7.0-fpm.sock

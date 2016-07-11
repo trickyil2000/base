@@ -1,0 +1,23 @@
+---
+- name: update cache and install OpenJDK
+  become: root
+  apt: name={{ openjdk_package }} update_cache=yes
+  ignore_errors: yes
+
+- name: add Java repository
+  become: root
+  apt_repository: repo={{ java_repo }}
+  ignore_errors: yes
+
+- name: accept oracle license
+  debconf: name={{ java_package }} question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: update cache and install Java
+  become: root
+  apt: name={{ java_package }} update_cache=yes
+  ignore_errors: yes
+
+- name: install ElasticSearch
+  become: root
+  apt: deb=https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ es_version }}.deb
+  ignore_errors: yes

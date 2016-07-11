@@ -1,0 +1,13 @@
+---
+- name: general install
+  hosts: all
+  connection: local
+  roles:
+    - common
+    - nginx
+    - php
+    - mysql
+    - nodejs
+    - redis
+    - elasticsearch
+    - application

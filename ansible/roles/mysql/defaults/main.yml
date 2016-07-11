@@ -1,0 +1,7 @@
+---
+mysql_service: mysql
+mysql_root_user: base
+mysql_root_password: base
+mysql_repo: mysql-apt-config_0.6.0-1_all.deb
+mysql_package: mysql-server-5.7
+app_db_name: base

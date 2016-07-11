@@ -1,0 +1,29 @@
+---
+- name: apt cache
+  become: root
+  apt: update_cache=yes
+
+- name: default package base
+  become: root
+  apt: name={{ item }}
+  with_items:
+    - python-software-properties
+    - build-essential
+    - python-pip
+    - python-dev
+    - libmysqlclient-dev
+
+- name: default packages for all environments
+  become: root
+  apt: name={{ item }}
+  with_items:
+    - curl
+    - wget
+    - unzip
+    - git-core
+    - ack-grep
+    - htop
+    - vim
+    - tmux
+    - software-properties-common
+    - screen

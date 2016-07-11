@@ -1,0 +1,10 @@
+---
+- name: add repository for Redis
+  become: root
+  apt_repository: repo={{ redis_repo }}
+  ignore_errors: yes
+
+- name: update cache and install Redis
+  become: root
+  apt: name={{ redis_package }} update_cache=yes
+  ignore_errors: yes

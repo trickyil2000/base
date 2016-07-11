@@ -1,0 +1,9 @@
+---
+# ElasticSearch version
+es_version: 2.3.3
+# OpenJDK version
+openjdk_package: openjdk-7-jre
+# Repository for Java
+java_repo: ppa:webupd8team/java
+# Java version
+java_package: oracle-java8-installer

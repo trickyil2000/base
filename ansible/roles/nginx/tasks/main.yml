@@ -1,0 +1,22 @@
+---
+- name: add nginx repository
+  become: root
+  apt_repository: repo={{ nginx_repo }}
+
+- name: install nginx
+  become: root
+  apt: name={{ nginx_package }}
+
+- name: replace default nginx.conf
+  become: root
+  template: src=nginx.conf.j2
+            dest=/etc/nginx/nginx.conf
+            owner=root
+            group=root
+            mode=0644
+            backup=true
+  notify: restart nginx
+
+- name: ensure nginx actually runs
+  become: root
+  service: name=nginx enabled=yes state=started

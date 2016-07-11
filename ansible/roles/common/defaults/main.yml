@@ -1,0 +1,3 @@
+---
+common_sys_packages_base: ['python-software-properties', 'build-essential']
+common_sys_packages_env: ['curl', 'wget', 'unzip', 'git-core', 'ack-grep', 'htop', 'vim', 'tmux', 'software-properties-common', 'screen']

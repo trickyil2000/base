@@ -1,0 +1,4 @@
+---
+# Redis default values
+redis_repo: ppa:chris-lea/redis-server
+redis_package: redis-server

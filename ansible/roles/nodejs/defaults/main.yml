@@ -1,0 +1,3 @@
+---
+# NodeJS default values
+nodejs_repo: deb https://deb.nodesource.com/node_6.x trusty main
