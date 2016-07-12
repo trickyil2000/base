@@ -61,6 +61,7 @@ This base box SHOULD run on ANY machine with (at least) the following specs:
 * 2GB of RAM memory
 * 10GB of HD space (we need plenty of space to develop in, right? ;-))
 * Vagrant 1.7.2
+    * Please make sure that `ffi` is installed before installing Vagrant plugins (`gem install ffi -v '1.9.14'`)  
     * Vagrant plugin 'vagrant-hostsupdater' (`vagrant plugin install vagrant-hostsupdater`)
 * VirtualBox 4.3.x with extension pack
 * x86 architecture
